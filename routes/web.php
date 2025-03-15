@@ -52,9 +52,9 @@ switch ($page) {
     case 'my-account':
         include "../view/auth/my-account.php";
         break;
-    // case 'logout':
-    //     include "../controllers/auth/logout.php";
-    //     break;
+    case 'all_product':
+        include "../view/cart/all_product.php";
+        break;
     // case 'logic_contact':
     //     include "../controllers/auth/logic_contact.php";
     //     break;

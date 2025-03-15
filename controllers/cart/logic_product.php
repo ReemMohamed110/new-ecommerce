@@ -20,13 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $desc_en = !empty($_POST['desc_en']) ? htmlspecialchars(trim($_POST['desc_en'])) : null;
     $desc_ar = !empty($_POST['desc_ar']) ? htmlspecialchars(trim($_POST['desc_ar'])) : null;
     $img = !empty($_FILES['image']) ? $_FILES['image']['name'] : null;
-    $image = "../../public/assets/img/product/".$img;
+    
     
     
     // var_dump($name_en);
     // var_dump($name_ar);
     // var_dump($price);
-    // var_dump($code);
+    // var_dump($_FILES['image']);
     // die;
 
     //name validation
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($desc_ar == null) {
         Sessions::set("desc_ar", "desc_ar is required");
     }
-    if ($image == null) {
+    if ($img == null) {
         Sessions::set("image", "image is required");
     }
 
@@ -92,7 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         exit;
         
     } else {
-        move_uploaded_file($_FILES['image']["tmp_name"],$image);
+        $image_path = "../../public/assets/img/product/".$img;
+            move_uploaded_file($_FILES['image']["tmp_name"], $image_path);
+            $image="../public/assets/img/product/".$img;
         if(isset($_GET['id'])){
             Sessions::set("success", "product edited successfully");
         

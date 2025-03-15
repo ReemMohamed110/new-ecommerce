@@ -225,6 +225,8 @@ class User  implements userInterface
 
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_email']=$email;
+        $_SESSION['user_id']=$user['id'];
+
         return $user;
     } else {
         return false;

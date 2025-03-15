@@ -34,7 +34,7 @@ $showBrands = new Brand();
             foreach ($res as  $value) { ?>
                 <tr>
                     <td><?= $value['name_en'] ?></td>
-                    <td><img width="100" height="100" src='<?=$value['image'] ?>'></td>
+                    <td><img width="100" height="100" src='<?= $value['image']?>'></td>
                     <td>
                         <a href="../controllers/cart/logic_delete.php?id=<?php echo $value['id'] ?>&tittle=brand" class="btn btn-danger" style="font-size: 18px; padding: 10px 20px;"><i class="fas fa-trash"></i></i> </a>
                         <a href="editBrand.php?id=<?php echo $value['id'] ?>" class="btn btn-info" style="font-size: 18px; padding: 10px 20px;"><i class="fas fa-edit"></i> </a>
@@ -53,7 +53,7 @@ $showBrands = new Brand();
 </div>
 
 
-
+<!-- ../public/assets/img/product/plumber.jpeg -->
 <?php
 include_once "inc/footer.php";
 ?>

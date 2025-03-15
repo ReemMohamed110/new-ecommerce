@@ -126,6 +126,12 @@
                     <p>all category</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="all_reviews.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>all reviews</p>
+                  </a>
+                </li>
 
               </ul>
             </li>

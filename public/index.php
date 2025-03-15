@@ -1,4 +1,5 @@
 <?php 
+
 session_start();
  use Database\MigrationManager;
 use DatabaseManager\DatabaseManager;

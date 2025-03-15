@@ -13,9 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $name_ar = !empty($_POST['name_ar']) ? htmlspecialchars(trim($_POST['name_ar'])) : null;
     $status = !empty($_POST['status']) ? htmlspecialchars(trim($_POST['status'])) : null;
     $img = !empty($_FILES['image']) ? $_FILES['image']['name'] : null;
-    
-    
-    
+
+
+
     // var_dump($name_en);
     // var_dump($name_ar);
     // var_dump($price);
@@ -41,40 +41,41 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
 
-    
+
     if ($status == null) {
         Sessions::set("status", "status is required");
     }
 
 
 
-    
-    if (Sessions::has('name_en') == "true" || Sessions::has('name_ar') == "true"  || Sessions::has('status') == "true" ) {
-        
+
+    if (Sessions::has('name_en') == "true" || Sessions::has('name_ar') == "true"  || Sessions::has('status') == "true") {
+
         Sessions::set("fail", "failed to add brand");
         header("location:" . $_SERVER['HTTP_REFERER']);
         exit;
-        
     } else {
-        if($img!=null){
-        $image = "../public/assets/img/product/".$img;
-        move_uploaded_file($_FILES['image']["tmp_name"],$image);}
-        if(isset($_GET['id'])){
+        if ($img != null) {
+            $image_path = "../../public/assets/img/product/".$img;
+            move_uploaded_file($_FILES['image']["tmp_name"], $image_path);
+            $image="../public/assets/img/product/".$img;
+            
+        }
+        if (isset($_GET['id'])) {
             Sessions::set("success", "brand updated successfully");
-        
-        $brandObj->editBrand($_GET['id'],$name_en, $name_ar,$image, $status);
-        
-        header("location:../../AdminLTE-3.1.0/allBrands.php" );
-        
-        exit;
+
+            $brandObj->editBrand($_GET['id'], $name_en, $name_ar, $image, $status);
+
+            header("location:../../AdminLTE-3.1.0/allBrands.php");
+
+            exit;
         }
         Sessions::set("success", "brand added successfully");
-        
-        $brandObj->addBrand($name_en, $name_ar,$image, $status);
-        
+
+        $brandObj->addBrand($name_en, $name_ar, $image, $status);
+
         header("location:" . $_SERVER['HTTP_REFERER']);
-        
+
         exit;
-        
     }
 }

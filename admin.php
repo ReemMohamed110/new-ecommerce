@@ -18,13 +18,16 @@ switch ($page) {
     case 'logic_register':
         include "controllers/auth/logic_register.php";
         break;
+    case 'logic_review':
+        include "controllers/cart/logic_review.php";
+        break;
     case 'logic_login_check':
 
         include "controllers/auth/logic_login.php";
         break;
-        case 'logout':
-            include "controllers/auth/logout.php";
-            break;
+    case 'logout':
+        include "controllers/auth/logout.php";
+        break;
 
     default:
         include "../view/error/404.php";

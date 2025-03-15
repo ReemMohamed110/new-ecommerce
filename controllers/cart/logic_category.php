@@ -57,8 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
     } else {
         if($img!=null){
-        $image = "../../public/assets/img/category/".$img;
-        move_uploaded_file($_FILES['image']["tmp_name"],$image);}
+            $image_path = "../../public/assets/img/category/".$img;
+            move_uploaded_file($_FILES['image']["tmp_name"], $image_path);
+            $image="../public/assets/img/product/".$img;}
         if(isset($_GET['id'])){
         Sessions::set("success", "category updated successfully");
         

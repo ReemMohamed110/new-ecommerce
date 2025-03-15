@@ -273,7 +273,7 @@
                                 <nav>
                                     <ul>
                                         <li><a href="index.php">home</a></li>
-                                        <li><a href="index.php?page=product-details">Product</a></li>
+                                        <li><a href="index.php?page=all_product">Product</a></li>
 
                                         <li><a class="active" href="#">pages <i class="fa fa-angle-down"></i></a>
                                             <ul class="sub_menu pages">
@@ -281,9 +281,12 @@
                                                 <li><a href="index.php?page=contact">contact</a></li>
                                                 <li><a href="index.php?page=privacy-policy">privacy policy</a></li>
                                                 <li><a href="index.php?page=faq">Frequently Questions</a></li>
-                                                <li><a href="index.php?page=login">login</a></li>
-                                                <li><a href="index.php?page=register">register</a></li>
-                                                <li><a href="../admin.php?page=logout">log out</a></li>
+                                                <?php if (!isset($_SESSION['user_email'])) { ?>
+                                                    <li><a href="index.php?page=login">login</a></li>
+                                                    <li><a href="index.php?page=register">register</a></li>
+                                                <?php } else { ?>
+                                                    <li><a href="../admin.php?page=logout">log out</a></li>
+                                                <?php } ?>
                                                 <li><a href="index.php?page=forget-password">Forget Password</a></li>
                                                 <li><a href="index.php?page=404">Error 404</a></li>
                                                 <li><a href="index.php?page=cart">cart</a></li>

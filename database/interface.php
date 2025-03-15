@@ -32,3 +32,9 @@ interface categoryInterface {
     function editCategory($id,$name_en, $name_ar,$image, $status);
     function deleteCategory($id);
 }
+interface reviewInterface {
+    function addReview($comment,$user_id,$product_id);
+    // function read();
+    // function update();
+    // function delete();
+}
