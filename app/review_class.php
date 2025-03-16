@@ -29,8 +29,8 @@ class Reviews implements reviewInterface
         $sql->execute(
             [
                 'comments' => $comments,
-                'user_id' => $productId,
-                'product_id' =>  $user_id
+                'user_id' => $user_id,
+                'product_id' => $product_id
             ]
         );
     }
