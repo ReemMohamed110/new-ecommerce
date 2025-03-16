@@ -1,4 +1,5 @@
 <?php
+
 interface userInterface
 {
     function create($name, $email, $phone, $password, $gender, $role);
@@ -40,9 +41,10 @@ interface BlogInterface
 {
     function create();
     function read();
-    function update();
-    function delete();
+    function update($id);
+    function delete($id);
 }
+
 interface reviewInterface
 {
     function addReview($comment, $user_id, $product_id);
