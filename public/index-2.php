@@ -102,7 +102,7 @@ $showProduct = new Product();
                             </div>
                             <div class="tranding-pro-title">
                                 <h3><?= $value['name_en'] ?></h3>
-                                <h4><?= $value['desc_en'] ?></h4>
+                                <button>ADD TO CART</button>
                             </div>
                             <div class="tranding-pro-price">
                                 <div class="price_box">

@@ -23,38 +23,54 @@ $showReviews = new Reviews();
             <thead>
                 <tr>
                     <th>user_id</th>
-                    <th>comment</th>
+                    <th>user name</th>
+                    <th>review</th>
                     <th>product_id</th>
+                    <th>product name</th>
+
                 </tr>
             </thead>
-           
+
+
+
+
             <?php
 
             $res = $showReviews->allReviews();
             foreach ($res as  $value) { ?>
-                <tr>
+                <tr><?php
+                    $id=$value['user_id'];
+                    $q = "SELECT users.name FROM users JOIN reviews on reviews.user_id=users.id WHERE  user_id= $id  ";
+                    $sql = new PDO("mysql:host=localhost;dbname=newEcommerce", "root", "");
+                    $sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $conn = $sql->prepare($q);
+                    $conn->execute();
+                    $users = $conn->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($users as $user) {
+                    } ?>
+                    <?php
+                    $product_id=$value['product_id'];
+                    $q = "SELECT products.name_en FROM products JOIN reviews on reviews.product_id=products.id WHERE  product_id= $product_id  ";
+                    $sql = new PDO("mysql:host=localhost;dbname=newEcommerce", "root", "");
+                    $sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $conn = $sql->prepare($q);
+                    $conn->execute();
+                    $products = $conn->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($products as $product) {
+                    } ?>
                     <td><?= $value['user_id'] ?></td>
-                    <td><?= $value['comments']?></td>
+                    <td><?= $user['name'] ?></td>
+                    <td><?= $value['comments'] ?></td>
                     <td><?= $value['product_id'] ?></td>
-                    <!-- <td>
-                        <a href="../controllers/cart/logic_delete.php?id=
-                        <?php 
-                        // echo $value['id']
-                         ?>
-                        &tittle=brand" class="btn btn-danger" style="font-size: 18px; padding: 10px 20px;"><i class="fas fa-trash"></i></i> </a>
-                        <a href="editBrand.php?id=
-                        <?php 
-                        // echo $value['id'] 
-                        ?>" class="btn btn-info" style="font-size: 18px; padding: 10px 20px;"><i class="fas fa-edit"></i> </a>
-
-                    </td> -->
+                    <td><?= $product['name_en'] ?></td>
+                    <td><?= $value['created_at'] ?></td>
                 </tr>
-                
-                    <?php }
 
-                    ?>
+            <?php }
 
-                    
+            ?>
+
+
 
         </table>
     </div>

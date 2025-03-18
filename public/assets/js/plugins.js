@@ -706,6 +706,8 @@ a.fn.owlCarousel.Constructor.Plugins.Animate=e}(window.Zepto||window.jQuery,wind
  */
 
 
+  
+
 if ( typeof Object.create !== 'function' ) {
 	Object.create = function( obj ) {
 		function F() {};

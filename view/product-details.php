@@ -11,6 +11,7 @@ foreach ($res as $product) {
 }
 
 ?>
+
 <?php $tittle = "product details"; ?>
 <!--product details start-->
 <div class="product_details mt-60 mb-60">
@@ -18,59 +19,44 @@ foreach ($res as $product) {
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="product-details-tab">
+                    
                     <div id="img-1" class="zoomWrapper single-zoom">
                         <a href="#">
-                            <img id="zoom1" src="<?= $product['image'] ?>" data-zoom-image="<?= $product['image'] ?>" alt="big-1">
+                            <img id="zoom1" src="<?= $product['image'] ?>" data-zoom-image="<?= $product['image'] ?>" alt="big-1" style="width: 100%; height: auto;">
                         </a>
                     </div>
-                    <!-- <div class="single-zoom-thumb">
-                        <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/details-2.jpg" data-zoom-image="assets/img/product/details-2.jpg">
-                                    <img src="assets/img/product/details-2.jpg" alt="zo-th-1" />
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/details-3.jpg" data-zoom-image="assets/img/product/details-3.jpg">
-                                    <img src="assets/img/product/details-3.jpg" alt="zo-th-1" />
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/details-4.jpg" data-zoom-image="assets/img/product/details-4.jpg">
-                                    <img src="assets/img/product/details-4.jpg" alt="zo-th-1" />
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/details-1.jpg" data-zoom-image="assets/img/product/details-1.jpg">
-                                    <img src="assets/img/product/details-1.jpg" alt="zo-th-1" />
-                                </a>
-
-                            </li>
-                        </ul>
-                    </div> -->
+                    
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="product_d_right">
                     <form action="#">
 
-                        <h1><?= $product['name_en'] ?></h1>
+                        <h1 style="font-size: xx-large;"><?= $product['name_en'] ?></h1>
                         <div class=" product_ratting">
                             <ul>
+                                <!-- <li><a href="#"><i class="fa fa-star"></i></a></li>
                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li class="review"><a href="#"> (250 reviews) </a></li>
+                                <li><a href="#"><i class="fa fa-star"></i></a></li> -->
+                                <?php
+                                $product_id = $product['id'];
+                                $q = "SELECT COUNT(*) FROM reviews WHERE product_id= $product_id  ";
+                                $sql = new PDO("mysql:host=localhost;dbname=newEcommerce", "root", "");
+                                $sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                $conn = $sql->prepare($q);
+                                $x = $conn->execute();
+                                $review_count = $conn->fetchColumn();
+                                // foreach ($products as $product) {
+                                // } 
+                                ?>
+                                <li class="review" style="font-size: x-large;"><a href="#">(<?= $review_count ?> reviews) </a></li>
                             </ul>
 
                         </div>
                         <div class="price_box">
-                            <span class="current_price">Price : $ <?= $product['price'] ?> </span>
+                            <span style="font-size: x-large;" class="current_price">Price : $ <?= $product['price'] ?> </span>
                             <!-- <span class="old_price">$80.00</span> -->
 
                         </div>
@@ -80,8 +66,14 @@ foreach ($res as $product) {
                                     <li>Free delivery available*</li>
                                     <li>Sale 30% Off Use Code : 'Drophut'</li>
                                 </ul> -->
-                            <p><?= $product['desc_en'] ?></p>
-                            <p><?= $product['desc_ar'] ?></p>
+                            <span style="font-size: x-large;">Description en: <a href="#">
+                                    <p><?= $product['desc_en'] ?></p>
+                                </a></span>
+                            <span style="font-size: x-large;">الوصف: <a href="#">
+                                    <p><?= $product['desc_ar'] ?></p>
+                                </a></span>
+
+
                         </div>
                         <div class="product_meta">
                             <?php
@@ -97,7 +89,7 @@ foreach ($res as $product) {
 
 
                             ?>
-                            <span>Category: <a href="#">
+                            <span style="font-size: x-large;">Category: <a href="#">
                                     <p><?= $category['name_en'] ?></p>
                                 </a></span>
                         </div>
@@ -115,7 +107,7 @@ foreach ($res as $product) {
 
 
                             ?>
-                            <span>brand: <a href="#">
+                            <span style="font-size: x-large;">brand: <a href="#">
                                     <p><?= $brand['name_en'] ?></p>
                                 </a></span>
                         </div>
@@ -133,7 +125,7 @@ foreach ($res as $product) {
                                 </ul> -->
                         <!-- </div> -->
                         <div class="product_variant quantity">
-                            <label>quantity:<?= $product['quantity'] ?></label>
+                            <label style="font-size: x-large;">quantity:<?= $product['quantity'] ?></label>
 
                             <button class="button" type="submit">add to cart</button>
 
@@ -180,15 +172,15 @@ foreach ($res as $product) {
                                 <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Specification</a>
                             </li>
                             <li>
-                                <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews (1)</a>
+                                <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews (<?= $review_count ?>)</a>
                             </li>
                         </ul>
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="info" role="tabpanel">
                             <div class="product_info_content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-                                <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.</p>
+                                <p><?= $product['desc_en'] ?></p>
+
                             </div>
                         </div>
                         <div class="tab-pane fade" id="sheet" role="tabpanel">
@@ -197,16 +189,16 @@ foreach ($res as $product) {
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <td class="first_child">Compositions</td>
-                                                <td>Polyester</td>
+                                                <td class="first_child">name :</td>
+                                                <td><?= $product['name_en'] ?></td>
                                             </tr>
                                             <tr>
-                                                <td class="first_child">Styles</td>
-                                                <td>Girly</td>
+                                                <td class="first_child">price : </td>
+                                                <td>$ <?= $product['price'] ?></td>
                                             </tr>
                                             <tr>
-                                                <td class="first_child">Properties</td>
-                                                <td>Short Dress</td>
+                                                <td class="first_child">brand :</td>
+                                                <td><?= $brand['name_en'] ?></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -226,7 +218,7 @@ foreach ($res as $product) {
                                         <?php
                                         $showReview = new Reviews();
                                         $reviews = $showReview->showReviews($product['id']);
-                                        $i=0;
+                                        $i = 0;
                                         foreach ($reviews as $review) { ?>
 
                                             <div class="col-12 md-5">
