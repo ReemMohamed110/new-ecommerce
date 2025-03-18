@@ -1,96 +1,77 @@
-
-<?php $tittle="cart"; ?>
-    <!--shopping cart area start -->
-    <div class="shopping_cart_area mt-60">
-        <div class="container">  
-            <form action="#"> 
+<?php
+require_once __DIR__ .'\..\..\app\Cart_class.php';
+$cart = new Cart();
+$user_id = 1; 
+$cartItems = $cart->read($user_id);
+$total = 0;
+?>
+<div class="shopping_cart_area mt-60">
+    <div class="container">
+        <form action="update_cart.php" method="post">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+                        <div class="cart_page table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product_thumb"> image</th>
+                                        <th class="product_name">product</th>
+                                        <th class="product-price">price</th>
+                                        <th class="product_quantity">quantity</th>
+                                        <th class="product_total">total</th>
+                                        <th class="product_remove">remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($cartItems) && is_array($cartItems)) : ?>
+                                        <?php foreach ($cartItems as $item) :
+                                            $itemTotal = $item['price'] * $item['quantity'];
+                                            $total += $itemTotal;
+                                        ?>
+                                            <tr>
+                                                <td class="product_thumb"><img src="uploads/products/<?= htmlspecialchars($item['image']) ?>" alt=""></td>
+                                                <td class="product_name"><?= htmlspecialchars($item['name']) ?></td>
+                                                <td class="product-price"><?= number_format($item['price'], 2) ?></td>
+                                                <td class="product_quantity"><input type="number" name="quantity[<?= $item['product_id'] ?>]" min="1" value="<?= $item['quantity'] ?>"></td>
+                                                <td class="product_total"><?= number_format($itemTotal, 2) ?></td>
+                                                <td class="product_remove"><a href="remove_from_cart.php?product_id=<?= $item['product_id'] ?>">إزالة</a></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
+                                        <tr>
+                                            <td colspan="6">cart empty</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart_submit">
+                            <button type="submit">update cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="coupon_area">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="table_desc">
-                            <div class="cart_page table-responsive">
-                                <table>
-                            <thead>
-                                <tr>
-                                    <th class="product_thumb">Image</th>
-                                    <th class="product_name">Product</th>
-                                    <th class="product-price">Price</th>
-                                    <th class="product_quantity">Quantity</th>
-                                    <th class="product_total">Total</th>
-                                    <th class="product_remove">Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a></td>
-                                    <td class="product_name"><a href="#">Handbag fringilla</a></td>
-                                    <td class="product-price">$65.00</td>
-                                    <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                                    <td class="product_total">$130.00</td>
-									<td class="product_remove"><a href="#"><i class="ion-android-close"></i></a></td>
-                                </tr>
-
-                                <tr>
-                                    <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a></td>
-                                    <td class="product_name"><a href="#">Handbags justo</a></td>
-                                    <td class="product-price">$90.00</td>
-                                    <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                                    <td class="product_total">$180.00</td>
-									<td class="product_remove"><a href="#"><i class="ion-android-close"></i></a></td>
-                                </tr>
-
-                            </tbody>
-                        </table>   
-                            </div>  
-                            <div class="cart_submit">
-                                <button type="submit">update cart</button>
-                            </div>      
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code left">
+                            <h3>coupon</h3>
+                            <input placeholder=" " type="text">
+                            <button type="submit">upplay</button>
                         </div>
                     </div>
-                </div>
-                <!--coupon code area start-->
-                <div class="coupon_area">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="coupon_code left">
-                                <h3>Coupon</h3>
-                                <div class="coupon_inner">   
-                                    <p>Enter your coupon code if you have one.</p>                                
-                                    <input placeholder="Coupon code" type="text">
-                                    <button type="submit">Apply coupon</button>
-                                </div>    
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="coupon_code right">
-                                <h3>Cart Totals</h3>
-                                <div class="coupon_inner">
-                                <div class="cart_subtotal">
-                                    <p>Subtotal</p>
-                                    <p class="cart_amount">$215.00</p>
-                                </div>
-                                <div class="cart_subtotal ">
-                                    <p>Shipping</p>
-                                    <p class="cart_amount"><span>Flat Rate:</span> $255.00</p>
-                                </div>
-                                <a href="#">Calculate shipping</a>
-
-                                <div class="cart_subtotal">
-                                    <p>Total</p>
-                                    <p class="cart_amount">$215.00</p>
-                                </div>
-                                <div class="checkout_btn">
-                                    <a href="#">Proceed to Checkout</a>
-                                </div>
-                                </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="coupon_code right">
+                            <h3> cart total</h3>
+                            <p>Total: <?= number_format($total, 2) ?></p>
+                            <div class="checkout_btn">
+                                <a href="checkout.php"> checkout </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--coupon code area end-->
-            </form> 
-        </div>     
+            </div>
+        </form>
     </div>
-    <!--shopping cart area end -->
-        
-
-   
+</div>
